@@ -4,14 +4,33 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
-      <v-col>
-        <v-text-field
-          v-model="newDate"
-          label="ここに日付を"
-          solo
-          
-        ></v-text-field>
-      </v-col>
+      <v-col
+      
+    >
+      <v-menu
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="date"
+            label="日時を選択"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="date"
+          @input="menu2 = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -34,15 +53,21 @@
 
     <v-divider></v-divider>
    
-    <v-container fluid>
+    <v-container>
+      <v-row>
+        <v-col>
       <v-checkbox
-        v-model="checkbox1"
-        :label="`Checkbox 1`"
+        v-model="inProgress"
+        :label="`IN PROGRESS`"
       ></v-checkbox>
+        </v-col>
+        <v-col>
       <v-checkbox
-        v-model="checkbox2"
-        :label="`Checkbox 2`"
+        v-model="finished"
+        :label="`FINISHED`"
       ></v-checkbox>
+        </v-col>
+      </v-row>
     </v-container>
 
     <v-divider/>
@@ -87,6 +112,8 @@ export default {
     data: () => ({
       tasks: [
         {
+          date: new Date().toISOString().substr(0, 10),
+          menu2: false,
           done: false,
           text: 'TODODODO',
         },
@@ -109,11 +136,14 @@ export default {
     methods: {
       create () {
         this.tasks.push({
+          date: new Date().toISOString().substr(0, 10),
+          menu2: false,
           done: false,
           text: this.newTask,
         })
 
         this.newTask = null
+        this.date = null
       },
     },
   }
