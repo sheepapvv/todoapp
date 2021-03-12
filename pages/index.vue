@@ -94,7 +94,7 @@
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
                     class="ml-4"
-                    v-text="task.text"
+                    v-text="task.date + task.text"
                   ></div>
                 </template>
               </v-checkbox>
