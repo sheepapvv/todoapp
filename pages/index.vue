@@ -91,11 +91,28 @@
                 :color="task.done && 'grey' || 'primary'"
               >
                 <template v-slot:label>
+                  <v-row>
+                    <v-col>
+                    <div
+                    :class="task.done && 'grey--text' || 'primary--text'"
+                    class="ml-4"
+                    v-text="task.date"
+                  ></div></v-col>
+                    <v-col>
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
                     class="ml-4"
-                    v-text="task.date + task.text"
-                  ></div>
+                    v-text="task.text"
+                  ></div></v-col>
+                  <v-col>
+                    <v-btn color="primary"
+                   @click="finished"
+            >FINISH</v-btn></v-col>
+            <v-col>
+            <v-btn color="primary"
+                   @click="deleteTodo"
+            >DELETE</v-btn></v-col>
+                  </v-row>
                 </template>
               </v-checkbox>
             </v-list-item-action>
