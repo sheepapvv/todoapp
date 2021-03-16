@@ -98,12 +98,15 @@
                     class="ml-4"
                     v-text="task.date"
                   ></div></v-col>
+                  
+                  <v-spacer/>
                     <v-col>
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
                     class="ml-4"
                     v-text="task.text"
                   ></div></v-col>
+                  <v-spacer/>
                   <v-col>
                     <v-btn color="primary"
                    @click="finished"
