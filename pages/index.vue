@@ -109,7 +109,7 @@
                   <v-spacer/>
                   <v-col>
                     <v-btn color="primary"
-                   @click="finished"
+                   @click="finishedTodo"
             >FINISH</v-btn></v-col>
             <v-col>
             <v-btn color="primary"
