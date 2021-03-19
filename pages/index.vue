@@ -100,6 +100,15 @@
                   ></div></v-col>
                   
                   <v-spacer/>
+                  
+                  <v-col>
+                    <v-chip
+                      class="ml-4"
+                      color="primary"
+                      label
+                      >IN PROGRESS
+                    </v-chip>
+                  </v-col>
                     <v-col>
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
@@ -109,12 +118,14 @@
                   <v-spacer/>
                   <v-col>
                     <v-btn color="primary"
-                   @click="finishedTodo"
-            >FINISH</v-btn></v-col>
-            <v-col>
-            <v-btn color="primary"
-                   @click="deleteTodo"
-            >DELETE</v-btn></v-col>
+                    @click="finishedTodo"
+                    >FINISH</v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn color="primary"
+                    @click="deleteTodo"
+                    >DELETE</v-btn>
+                  </v-col>
                   </v-row>
                 </template>
               </v-checkbox>
@@ -141,17 +152,7 @@ export default {
       newTask: null,
     }),
 
-    computed: {
-      completedTasks () {
-        return this.tasks.filter(task => task.done).length
-      },
-      progress () {
-        return this.completedTasks / this.tasks.length * 100
-      },
-      remainingTasks () {
-        return this.tasks.length - this.completedTasks
-      },
-    },
+    
 
     methods: {
       create () {
