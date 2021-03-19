@@ -4,6 +4,7 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
+<<<<<<< HEAD
       <v-col
       
     >
@@ -31,6 +32,15 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
+=======
+      <v-col>
+        <v-text-field
+          label="日時を入力"
+          :rules="rules"
+          hide-details="auto"
+        ></v-text-field>
+      </v-col>
+>>>>>>> main
     </v-row>
     <v-row>
       <v-col>
@@ -38,6 +48,7 @@
       </v-col>
       <v-col>
         <v-text-field
+<<<<<<< HEAD
           v-model="newTask"
           label="ここにタスクを"
           solo
@@ -46,10 +57,18 @@
             <v-btn color="primary"
                    @click="create"
             >SAVE</v-btn>
+=======
+          label="タスクを入力"
+          :rules="rules"
+          hide-details="auto"
+        > <template v-slot:append-outer>
+            <v-btn color="primary">SAVE</v-btn>
+>>>>>>> main
           </template>
         </v-text-field>
       </v-col>
     </v-row>
+<<<<<<< HEAD
 
     <v-divider/>
    
@@ -119,12 +138,46 @@
           </v-list-item>
         </template>
       </v-slide-y-transition>
+=======
+    <v-divider></v-divider>
+    <v-container fluid>
+      <v-checkbox
+        v-model="checkbox1"
+        :label="`Checkbox 1`"
+      ></v-checkbox>
+      <v-checkbox
+        v-model="checkbox2"
+        :label="`Checkbox 2`"
+      ></v-checkbox>
+    </v-container>
+    <v-card class="mx-auto" tile>
+      <v-list rounded>
+        <v-list-item-group color="primary">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TODODODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TOTODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+>>>>>>> main
     </v-card>
   </v-container>
   
 </template>
 
 <script>
+<<<<<<< HEAD
 export default {
     data: () => ({
       tasks: [
@@ -164,4 +217,7 @@ export default {
       },
     },
   }
+=======
+
+>>>>>>> main
 </script>
