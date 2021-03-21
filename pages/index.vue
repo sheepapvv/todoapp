@@ -4,6 +4,7 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
+
       <v-col
       
     >
@@ -31,6 +32,7 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
+
     </v-row>
     <v-row>
       <v-col>
@@ -38,6 +40,7 @@
       </v-col>
       <v-col>
         <v-text-field
+
           v-model="newTask"
           label="ここにタスクを"
           solo
@@ -46,10 +49,12 @@
             <v-btn color="primary"
                    @click="create"
             >SAVE</v-btn>
+
           </template>
         </v-text-field>
       </v-col>
     </v-row>
+
 
     <v-divider/>
    
@@ -119,12 +124,14 @@
           </v-list-item>
         </template>
       </v-slide-y-transition>
+
     </v-card>
   </v-container>
   
 </template>
 
 <script>
+
 export default {
     data: () => ({
       tasks: [
@@ -164,4 +171,5 @@ export default {
       },
     },
   }
+
 </script>
