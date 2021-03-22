@@ -9,7 +9,9 @@
           v-model="newDate"
           label="ここに日付を"
           solo
-          
+          :rules="rules"
+          hide-details="auto"
+
         ></v-text-field>
       </v-col>
     </v-row>
@@ -19,6 +21,7 @@
       </v-col>
       <v-col>
         <v-text-field
+
           v-model="newTask"
           label="ここにタスクを"
           solo
@@ -27,14 +30,19 @@
             <v-btn color="primary"
                    @click="create"
             >SAVE</v-btn>
+
           </template>
         </v-text-field>
       </v-col>
     </v-row>
 
+
     <v-divider></v-divider>
    
     <v-divider></v-divider>
+
+    <v-divider></v-divider>
+
     <v-container fluid>
       <v-checkbox
         v-model="checkbox1"
@@ -78,6 +86,28 @@
           </v-list-item>
         </template>
       </v-slide-y-transition>
+
+    <v-card class="mx-auto" tile>
+      <v-list rounded>
+        <v-list-item-group color="primary">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TODODODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>TOTODO</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+
     </v-card>
   </v-container>
   
