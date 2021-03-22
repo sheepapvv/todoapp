@@ -32,7 +32,6 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
-
     </v-row>
     <v-row>
       <v-col>
@@ -49,7 +48,6 @@
             <v-btn color="primary"
                    @click="create"
             >SAVE</v-btn>
-
           </template>
         </v-text-field>
       </v-col>
@@ -57,10 +55,11 @@
 
 
     <v-divider/>
-   
+  
     <v-container>
       <v-row>
         <v-col>
+    
       <v-checkbox
         v-model="inProgress"
         :label="`IN PROGRESS`"
