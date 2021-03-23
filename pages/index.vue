@@ -31,6 +31,13 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
+      <v-col>
+        <v-text-field
+          label="日時を入力"
+          :rules="rules"
+          hide-details="auto"
+        ></v-text-field>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -38,14 +45,11 @@
       </v-col>
       <v-col>
         <v-text-field
-          v-model="newTask"
-          label="ここにタスクを"
-          solo
-          @keydown.enter="create"
+          label="タスクを入力"
+          :rules="rules"
+          hide-details="auto"
         > <template v-slot:append-outer>
-            <v-btn color="primary"
-                   @click="create"
-            >SAVE</v-btn>
+            <v-btn color="primary">SAVE</v-btn>
           </template>
         </v-text-field>
       </v-col>
@@ -53,9 +57,12 @@
 
     <v-divider/>
    
-    <v-container>
-      <v-row>
-        <v-col>
+    <v-divider></v-divider>
+    
+  
+    <v-container fluid>
+    <v-row>
+      <v-col>
       <v-checkbox
         v-model="inProgress"
         :label="`IN PROGRESS`"
