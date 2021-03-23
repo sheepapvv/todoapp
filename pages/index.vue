@@ -4,16 +4,34 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
-      <v-col>
-        <v-text-field
-          v-model="newDate"
-          label="ここに日付を"
-          solo
-          :rules="rules"
-          hide-details="auto"
 
-        ></v-text-field>
-      </v-col>
+      <v-col
+      
+    >
+      <v-menu
+        v-model="menu2"
+        :close-on-content-click="false"
+        :nudge-right="40"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="date"
+            label="日時を選択"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+        </template>
+        <v-date-picker
+          v-model="date"
+          @input="menu2 = false"
+        ></v-date-picker>
+      </v-menu>
+    </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -30,7 +48,6 @@
             <v-btn color="primary"
                    @click="create"
             >SAVE</v-btn>
-
           </template>
         </v-text-field>
       </v-col>
@@ -44,6 +61,14 @@
     <v-divider></v-divider>
 
     <v-container fluid>
+
+
+    <v-divider/>
+  
+    <v-container>
+      <v-row>
+        <v-col>
+    
       <v-checkbox
         v-model="checkbox1"
         :label="`Checkbox 1`"
@@ -87,33 +112,13 @@
         </template>
       </v-slide-y-transition>
 
-    <v-card class="mx-auto" tile>
-      <v-list rounded>
-        <v-list-item-group color="primary">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>TODO</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>TODODODO</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>TOTODO</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-
     </v-card>
   </v-container>
   
 </template>
 
 <script>
+
 export default {
     data: () => ({
       tasks: [
@@ -148,4 +153,5 @@ export default {
       },
     },
   }
+
 </script>
