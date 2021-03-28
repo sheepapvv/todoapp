@@ -52,14 +52,7 @@
         </v-text-field>
       </v-col>
     </v-row>
-
-
     <v-divider></v-divider>
-   
-    <v-divider></v-divider>
-
-    <v-divider></v-divider>
-
     <v-container fluid>
 
 
