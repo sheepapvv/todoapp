@@ -5,30 +5,30 @@
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
       <v-col>
-      <v-menu
-        v-model="menu2"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
+        <v-menu
+          v-model="menu2"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+          >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              label="日時を選択"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
             v-model="date"
-            label="日時を選択"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="date"
-          @input="menu2 = false"
-        ></v-date-picker>
-      </v-menu>
-    </v-col>
+            @input="menu2 = false"
+          ></v-date-picker>
+        </v-menu>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -163,6 +163,9 @@ export default {
 
         this.newTask = null
         this.date = null
+      },
+      deleteTodo: function (index) {
+        this.items.splice(index, 1)
       },
     },
   }
