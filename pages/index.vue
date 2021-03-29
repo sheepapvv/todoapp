@@ -143,7 +143,6 @@ export default {
         {
           date: new Date().toISOString().substr(0, 10),
           menu2: false,
-          done: false,
           text: 'TODODODO',
         },
       ],
@@ -157,7 +156,6 @@ export default {
         this.tasks.push({
           date: new Date().toISOString().substr(0, 10),
           menu2: false,
-          done: false,
           text: this.newTask,
         })
 
