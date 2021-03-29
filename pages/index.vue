@@ -53,7 +53,7 @@
       </v-col>
     </v-row>
     <v-divider></v-divider>
-    <v-container fluid>
+    
 
 
     <v-divider/>
@@ -70,6 +70,8 @@
         v-model="checkbox2"
         :label="`Checkbox 2`"
       ></v-checkbox>
+        </v-col>
+      </v-row>
     </v-container>
 
     <v-divider/>
