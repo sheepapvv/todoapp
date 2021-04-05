@@ -4,7 +4,6 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
-
       <v-col
       
     >
@@ -32,6 +31,13 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
+      <v-col>
+        <v-text-field
+          label="日時を入力"
+          :rules="rules"
+          hide-details="auto"
+        ></v-text-field>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -53,15 +59,9 @@
       </v-col>
     </v-row>
     <v-divider></v-divider>
-    
-
-
-    <v-divider/>
-  
-    <v-container>
-      <v-row>
-        <v-col>
-    
+    <v-container fluid>
+    <v-row>
+      <v-col>
       <v-checkbox
         v-model="checkbox1"
         :label="`Checkbox 1`"
@@ -95,25 +95,54 @@
                 :color="task.done && 'grey' || 'primary'"
               >
                 <template v-slot:label>
+                  <v-row>
+                    <v-col>
+                    <div
+                    :class="task.done && 'grey--text' || 'primary--text'"
+                    class="ml-4"
+                    v-text="task.date"
+                  ></div></v-col>
+                  
+                  <v-spacer/>
+                  
+                  <v-col>
+                    <v-chip
+                      class="ml-4"
+                      color="primary"
+                      label
+                      >IN PROGRESS
+                    </v-chip>
+                  </v-col>
+                    <v-col>
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
                     class="ml-4"
                     v-text="task.text"
-                  ></div>
+                  ></div></v-col>
+                  <v-spacer/>
+                  <v-col>
+                    <v-btn color="primary"
+                    @click="finishedTodo"
+                    >FINISH</v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn color="primary"
+                    @click="deleteTodo"
+                    >DELETE</v-btn>
+                  </v-col>
+                  </v-row>
                 </template>
               </v-checkbox>
             </v-list-item-action>
           </v-list-item>
         </template>
       </v-slide-y-transition>
-
     </v-card>
   </v-container>
   
 </template>
 
 <script>
-
 export default {
     data: () => ({
       tasks: [
@@ -125,17 +154,7 @@ export default {
       newTask: null,
     }),
 
-    computed: {
-      completedTasks () {
-        return this.tasks.filter(task => task.done).length
-      },
-      progress () {
-        return this.completedTasks / this.tasks.length * 100
-      },
-      remainingTasks () {
-        return this.tasks.length - this.completedTasks
-      },
-    },
+    
 
     methods: {
       create () {
@@ -148,5 +167,4 @@ export default {
       },
     },
   }
-
 </script>
