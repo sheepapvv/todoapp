@@ -1,6 +1,5 @@
 <template>
   <v-container>
-<<<<<<< HEAD
     <v-form ref="form" lazy-validation @submit.prevent="addTask">
       <v-row>
         <v-col>
@@ -55,83 +54,10 @@
         </v-col>
         <v-col>
           <v-checkbox v-model="finished" :label="`FINISHED`"></v-checkbox>
-=======
-    <v-row>
-      <v-col>
-        <v-subheader>DUE DATE :</v-subheader>
-      </v-col>
-
-      <v-col
-      
-    >
-      <v-menu
-        v-model="menu2"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        transition="scale-transition"
-        offset-y
-        min-width="auto"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-text-field
-            v-model="date"
-            label="日時を選択"
-            prepend-icon="mdi-calendar"
-            readonly
-            v-bind="attrs"
-            v-on="on"
-          ></v-text-field>
-        </template>
-        <v-date-picker
-          v-model="date"
-          @input="menu2 = false"
-        ></v-date-picker>
-      </v-menu>
-    </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-subheader>TODO :</v-subheader>
-      </v-col>
-      <v-col>
-        <v-text-field
-
-          v-model="newTask"
-          label="ここにタスクを"
-          solo
-          @keydown.enter="create"
-        > <template v-slot:append-outer>
-            <v-btn color="primary"
-                   @click="create"
-            >SAVE</v-btn>
-          </template>
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <v-divider></v-divider>
-    
-
-
-    <v-divider/>
-  
-    <v-container>
-      <v-row>
-        <v-col>
-    
-      <v-checkbox
-        v-model="checkbox1"
-        :label="`Checkbox 1`"
-      ></v-checkbox>
-      <v-checkbox
-        v-model="checkbox2"
-        :label="`Checkbox 2`"
-      ></v-checkbox>
->>>>>>> main
         </v-col>
       </v-row>
     </v-container>
 
-<<<<<<< HEAD
     <v-divider />
     <v-list two-line subheader>
       <v-row>
@@ -151,47 +77,10 @@
         </v-list-tile>
       </v-row>
     </v-list>
-=======
-    <v-divider/>
-
-    <v-card v-if="tasks.length > 0">
-      <v-slide-y-transition
-        class="py-0"
-        group
-        tag="v-list"
-      >
-        <template v-for="(task, i) in tasks">
-          <v-divider
-            v-if="i !== 0"
-            :key="`${i}-divider`"
-          ></v-divider>
-
-          <v-list-item :key="`${i}-${task.text}`">
-            <v-list-item-action>
-              <v-checkbox
-                v-model="task.done"
-                :color="task.done && 'grey' || 'primary'"
-              >
-                <template v-slot:label>
-                  <div
-                    :class="task.done && 'grey--text' || 'primary--text'"
-                    class="ml-4"
-                    v-text="task.text"
-                  ></div>
-                </template>
-              </v-checkbox>
-            </v-list-item-action>
-          </v-list-item>
-        </template>
-      </v-slide-y-transition>
-
-    </v-card>
->>>>>>> main
   </v-container>
 </template>
 
 <script>
-<<<<<<< HEAD
 export default {
   data: () => ({
     tasks: [
@@ -221,42 +110,3 @@ export default {
   },
 };
 </script>
-=======
-
-export default {
-    data: () => ({
-      tasks: [
-        {
-          done: false,
-          text: 'TODODODO',
-        },
-      ],
-      newTask: null,
-    }),
-
-    computed: {
-      completedTasks () {
-        return this.tasks.filter(task => task.done).length
-      },
-      progress () {
-        return this.completedTasks / this.tasks.length * 100
-      },
-      remainingTasks () {
-        return this.tasks.length - this.completedTasks
-      },
-    },
-
-    methods: {
-      create () {
-        this.tasks.push({
-          done: false,
-          text: this.newTask,
-        })
-
-        this.newTask = null
-      },
-    },
-  }
-
-</script>
->>>>>>> main
