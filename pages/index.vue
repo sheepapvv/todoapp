@@ -4,10 +4,6 @@
       <v-col>
         <v-subheader>DUE DATE :</v-subheader>
       </v-col>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
       <v-col
       
     >
@@ -35,7 +31,6 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
-<<<<<<< HEAD
       <v-col>
         <v-text-field
           label="日時を入力"
@@ -43,8 +38,6 @@
           hide-details="auto"
         ></v-text-field>
       </v-col>
-=======
->>>>>>> main
     </v-row>
     <v-row>
       <v-col>
@@ -66,21 +59,9 @@
       </v-col>
     </v-row>
     <v-divider></v-divider>
-<<<<<<< HEAD
     <v-container fluid>
     <v-row>
       <v-col>
-=======
-    
-
-
-    <v-divider/>
-  
-    <v-container>
-      <v-row>
-        <v-col>
-    
->>>>>>> main
       <v-checkbox
         v-model="checkbox1"
         :label="`Checkbox 1`"
@@ -114,7 +95,6 @@
                 :color="task.done && 'grey' || 'primary'"
               >
                 <template v-slot:label>
-<<<<<<< HEAD
                   <v-row>
                     <v-col>
                     <div
@@ -134,13 +114,10 @@
                     </v-chip>
                   </v-col>
                     <v-col>
-=======
->>>>>>> main
                   <div
                     :class="task.done && 'grey--text' || 'primary--text'"
                     class="ml-4"
                     v-text="task.text"
-<<<<<<< HEAD
                   ></div></v-col>
                   <v-spacer/>
                   <v-col>
@@ -154,29 +131,18 @@
                     >DELETE</v-btn>
                   </v-col>
                   </v-row>
-=======
-                  ></div>
->>>>>>> main
                 </template>
               </v-checkbox>
             </v-list-item-action>
           </v-list-item>
         </template>
       </v-slide-y-transition>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
     </v-card>
   </v-container>
   
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 export default {
     data: () => ({
       tasks: [
@@ -201,8 +167,4 @@ export default {
       },
     },
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 </script>
