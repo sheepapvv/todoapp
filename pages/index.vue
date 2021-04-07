@@ -63,11 +63,11 @@
       <v-list-item v-for="(task, index) in tasks" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
 
-        <v-list-subtitle>{{ task.state }}</v-list-subtitle>
+        <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
 
         <v-list-title>{{ task.text }}</v-list-title>
         <v-list-item-icon>
-          <v-btn color="primary" @click="finishedTodo(index)">FINISH</v-btn>
+          <v-btn color="primary" @click="finishedTodo(task)">FINISH</v-btn>
 
           <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
         </v-list-item-icon>
@@ -84,7 +84,7 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         menu2: false,
         text: "TODODODO",
-        state: "IN PROGRESS",
+        state: 0,
       },
     ],
     options: [
@@ -92,7 +92,7 @@ export default {
       { value: 0, label: "IN PROGRESS" },
       { value: 1, label: "FINISHED" },
     ],
-    current: -1,
+    current: 0,
     newTask: null,
   }),
   computed: {
@@ -102,13 +102,6 @@ export default {
       }, {});
       // キーから見つけやすいように、次のように加工したデータを作成
       // {0: '作業中', 1: '完了', -1: 'すべて'}
-    },
-    computedTodos: function () {
-      // データ current が -1 ならすべて
-      // それ以外なら current と state が一致するものだけに絞り込む
-      return this.todos.filter(function (el) {
-        return this.current < 0 ? true : this.current === el.state;
-      }, this);
     },
   },
 
@@ -127,8 +120,8 @@ export default {
     deleteTodo: function (index) {
       this.tasks.splice(index, 1);
     },
-    finishedTodo: function (index) {
-      task.state = tasks.state ? 0 : 1;
+    finishedTodo: function (task) {
+      task.state = task.state ? 0 : 1;
     },
   },
 };
