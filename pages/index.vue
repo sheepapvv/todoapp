@@ -48,7 +48,7 @@
     <v-divider></v-divider>
 
     <v-container>
-      <label v-for="(label, key) in options" :key="key">
+      <label v-for="label in options" :key="label.id">
         <input type="radio" v-model="current" v-bind:value="label.value" />{{
           label.label
         }}
