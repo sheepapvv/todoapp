@@ -48,35 +48,35 @@
     <v-divider />
 
     <v-container>
-      <v-row>
-        <v-col>
-          <v-checkbox v-model="inProgress" :label="`IN PROGRESS`"></v-checkbox>
-        </v-col>
-        <v-col>
-          <v-checkbox v-model="finished" :label="`FINISHED`"></v-checkbox>
-        </v-col>
-      </v-row>
+      <label v-for="label in options" :key="label.id">
+        <input type="radio" v-model="current" v-bind:value="label.value" />{{
+          label.label
+        }}
+      </label>
     </v-container>
 
     <v-divider />
-    <v-list two-line subheader>
-      <v-row>
-        <v-list-tile v-for="(task, index) in tasks" :key="index" avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{ task.text }}</v-list-item-title>
-            <v-list-item-subtitle>{{ task.date }}</v-list-item-subtitle>
-          </v-list-item-content>
 
-          <v-spacer />
-          <v-col>
-            <v-btn color="primary" @click="finishedTodo">FINISH</v-btn>
-          </v-col>
-          <v-col>
-            <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
-          </v-col>
-        </v-list-tile>
-      </v-row>
-    </v-list>
+    <v-card>
+      <v-list-item v-for="(task, index) in computedTodos" :key="index">
+        <v-list-subtitle>{{ task.date }}</v-list-subtitle>
+
+        <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
+
+        <v-list-title>{{ task.text }}</v-list-title>
+        <v-list-item-icon>
+          <v-btn color="primary" @click="finishTodo(task)">FINISH</v-btn>
+
+          <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-card>
+    <v-pagination
+          v-model="page"
+          :length="length"
+          @input="pageChange"
+        ></v-pagination>
+    
   </v-container>
 </template>
 
@@ -88,10 +88,37 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         menu2: false,
         text: "TODODODO",
+        state: 1,
       },
     ],
+    options: [
+      { value: 0, label: "全て" },
+      { value: 1, label: "IN PROGRESS" },
+      { value: 2, label: "FINISHED" },
+    ],
+
+      page: 1,
+      length: 0,
+      lists: [],
+      displayLists: [],
+      pageSize: 10,
+    current: 0,
     newTask: null,
   }),
+  computed: {
+    labels() {
+      return this.options.reduce(function (a, b) {
+        return Object.assign(a, { [b.value]: b.label });
+      }, {});
+      
+    },
+    computedTodos: function() {
+      
+      return this.tasks.filter(function(el) {
+        return this.current < 1 ? true : this.current === el.state
+      }, this)
+    }
+  },
 
   methods: {
     create() {
@@ -99,6 +126,7 @@ export default {
         date: this.date,
         menu2: false,
         text: this.newTask,
+        state: 1,
       });
 
       this.newTask = null;
@@ -106,6 +134,19 @@ export default {
     },
     deleteTodo: function (index) {
       this.tasks.splice(index, 1);
+    },
+    finishTodo: function (task) {
+      task.state = task.state ? 2 : 1;
+    },
+    pageChange: function (pageNumber) {
+      this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1),this.pageSize*(pageNumber));
+    },
+    function(){
+      this.lists = new Array(99).fill().map((v,i)=> {
+        return {id : i,title : "Title" + i};
+      });
+      this.length = Math.ceil(this.lists.length/this.pageSize);
+      this.displayLists = this.lists.slice(0,this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
     },
   },
 };
