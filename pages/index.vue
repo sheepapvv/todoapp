@@ -127,7 +127,7 @@ export default {
     deleteTodo: function (index) {
       this.tasks.splice(index, 1);
     },
-    finishedTodo: function (index) {
+    finishTodo: function (index) {
       task.state = tasks.state ? 1 : 2;
     },
   },
