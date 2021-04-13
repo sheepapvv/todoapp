@@ -56,6 +56,7 @@
     </v-container>
 
     <v-divider />
+
     <v-card>
       <v-list-item v-for="(task, index) in computedTodos" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
@@ -64,7 +65,7 @@
 
         <v-list-title>{{ task.text }}</v-list-title>
         <v-list-item-icon>
-          <v-btn color="primary" @click="finishedTodo(task)">FINISH</v-btn>
+          <v-btn color="primary" @click="finishTodo(task)">FINISH</v-btn>
 
           <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
         </v-list-item-icon>
@@ -75,7 +76,7 @@
           :length="length"
           @input="pageChange"
         ></v-pagination>
-    </v-content>
+    
   </v-container>
 </template>
 
@@ -87,7 +88,7 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         menu2: false,
         text: "TODODODO",
-        state: 0,
+        state: 1,
       },
     ],
     options: [
@@ -114,7 +115,7 @@ export default {
     computedTodos: function() {
       
       return this.tasks.filter(function(el) {
-        return this.current < 0 ? true : this.current === el.state
+        return this.current < 1 ? true : this.current === el.state
       }, this)
     }
   },
@@ -125,7 +126,7 @@ export default {
         date: this.date,
         menu2: false,
         text: this.newTask,
-        state: 0,
+        state: 1,
       });
 
       this.newTask = null;
@@ -135,7 +136,7 @@ export default {
       this.tasks.splice(index, 1);
     },
     finishTodo: function (task) {
-      task.state = task.state ? 1 : 2;
+      task.state = task.state ? 2 : 1;
     },
     pageChange: function (pageNumber) {
       this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1),this.pageSize*(pageNumber));
