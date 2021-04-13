@@ -88,11 +88,11 @@ export default {
       },
     ],
     options: [
-      { value: -1, label: "全て" },
-      { value: 0, label: "IN PROGRESS" },
-      { value: 1, label: "FINISHED" },
+      { value: 0, label: "全て" },
+      { value: 1, label: "IN PROGRESS" },
+      { value: 2, label: "FINISHED" },
     ],
-    current: -1,
+    current: 0,
     newTask: null,
   }),
   computed: {
@@ -128,7 +128,7 @@ export default {
       this.tasks.splice(index, 1);
     },
     finishedTodo: function (index) {
-      task.state = tasks.state ? 0 : 1;
+      task.state = tasks.state ? 1 : 2;
     },
   },
 };
