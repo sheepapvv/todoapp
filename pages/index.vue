@@ -45,7 +45,7 @@
       </v-row>
     </v-form>
 
-    <v-divider></v-divider>
+    <v-divider />
 
     <v-container>
       <v-row>
@@ -58,7 +58,7 @@
       </v-row>
     </v-container>
 
-    <v-divider></v-divider>
+    <v-divider />
     <v-card>
       <v-list-item v-for="(task, index) in tasks" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
