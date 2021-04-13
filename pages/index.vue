@@ -45,7 +45,7 @@
       </v-row>
     </v-form>
 
-    <v-divider></v-divider>
+    <v-divider />
 
     <v-container>
       <label v-for="label in options" :key="label.id">
@@ -55,8 +55,7 @@
       </label>
     </v-container>
 
-    <v-divider></v-divider>
-    <v-content>
+    <v-divider />
     <v-card>
       <v-list-item v-for="(task, index) in computedTodos" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
@@ -92,9 +91,9 @@ export default {
       },
     ],
     options: [
-      { value: -1, label: "全て" },
-      { value: 0, label: "IN PROGRESS" },
-      { value: 1, label: "FINISHED" },
+      { value: 0, label: "全て" },
+      { value: 1, label: "IN PROGRESS" },
+      { value: 2, label: "FINISHED" },
     ],
 
       page: 1,
@@ -102,7 +101,7 @@ export default {
       lists: [],
       displayLists: [],
       pageSize: 10,
-    current: -1,
+    current: 0,
     newTask: null,
   }),
   computed: {
@@ -135,8 +134,8 @@ export default {
     deleteTodo: function (index) {
       this.tasks.splice(index, 1);
     },
-    finishedTodo: function (task) {
-      task.state = task.state ? 0 : 1;
+    finishTodo: function (task) {
+      task.state = task.state ? 1 : 2;
     },
     pageChange: function (pageNumber) {
       this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1),this.pageSize*(pageNumber));
