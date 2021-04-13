@@ -59,24 +59,20 @@
     </v-container>
 
     <v-divider />
-    <v-list two-line subheader>
-      <v-row>
-        <v-list-tile v-for="(task, index) in tasks" :key="index" avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{ task.text }}</v-list-item-title>
-            <v-list-item-subtitle>{{ task.date }}</v-list-item-subtitle>
-          </v-list-item-content>
+    <v-card>
+      <v-list-item v-for="(task, index) in tasks" :key="index">
+        <v-list-subtitle>{{ task.date }}</v-list-subtitle>
 
-          <v-spacer />
-          <v-col>
-            <v-btn color="primary" @click="finishedTodo">FINISH</v-btn>
-          </v-col>
-          <v-col>
-            <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
-          </v-col>
-        </v-list-tile>
-      </v-row>
-    </v-list>
+        <v-list-subtitle>{{ task.state }}</v-list-subtitle>
+
+        <v-list-title>{{ task.text }}</v-list-title>
+        <v-list-item-icon>
+          <v-btn color="primary" @click="finishedTodo(index)">FINISH</v-btn>
+
+          <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-card>
   </v-container>
 </template>
 
@@ -88,10 +84,33 @@ export default {
         date: new Date().toISOString().substr(0, 10),
         menu2: false,
         text: "TODODODO",
+        state: "IN PROGRESS",
       },
     ],
+    options: [
+      { value: 0, label: "全て" },
+      { value: 1, label: "IN PROGRESS" },
+      { value: 2, label: "FINISHED" },
+    ],
+    current: 0,
     newTask: null,
   }),
+  computed: {
+    labels() {
+      return this.options.reduce(function (a, b) {
+        return Object.assign(a, { [b.value]: b.label });
+      }, {});
+      // キーから見つけやすいように、次のように加工したデータを作成
+      // {0: '作業中', 1: '完了', -1: 'すべて'}
+    },
+    computedTodos: function () {
+      // データ current が -1 ならすべて
+      // それ以外なら current と state が一致するものだけに絞り込む
+      return this.todos.filter(function (el) {
+        return this.current < 0 ? true : this.current === el.state;
+      }, this);
+    },
+  },
 
   methods: {
     create() {
@@ -99,6 +118,7 @@ export default {
         date: this.date,
         menu2: false,
         text: this.newTask,
+        state: 0,
       });
 
       this.newTask = null;
@@ -106,6 +126,9 @@ export default {
     },
     deleteTodo: function (index) {
       this.tasks.splice(index, 1);
+    },
+    finishTodo: function (index) {
+      task.state = tasks.state ? 1 : 2;
     },
   },
 };
