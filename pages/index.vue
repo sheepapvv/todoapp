@@ -56,6 +56,7 @@
     </v-container>
 
     <v-divider></v-divider>
+    <v-content>
     <v-card>
       <v-list-item v-for="(task, index) in computedTodos" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
@@ -70,6 +71,12 @@
         </v-list-item-icon>
       </v-list-item>
     </v-card>
+    <v-pagination
+          v-model="page"
+          :length="length"
+          @input="pageChange"
+        ></v-pagination>
+    </v-content>
   </v-container>
 </template>
 
@@ -89,6 +96,12 @@ export default {
       { value: 0, label: "IN PROGRESS" },
       { value: 1, label: "FINISHED" },
     ],
+
+      page: 1,
+      length: 0,
+      lists: [],
+      displayLists: [],
+      pageSize: 10,
     current: -1,
     newTask: null,
   }),
@@ -97,12 +110,10 @@ export default {
       return this.options.reduce(function (a, b) {
         return Object.assign(a, { [b.value]: b.label });
       }, {});
-      // キーから見つけやすいように、次のように加工したデータを作成
-      // {0: '作業中', 1: '完了', -1: 'すべて'}
+      
     },
     computedTodos: function() {
-      // データ current が -1 ならすべて
-      // それ以外なら current と state が一致するものだけに絞り込む
+      
       return this.tasks.filter(function(el) {
         return this.current < 0 ? true : this.current === el.state
       }, this)
@@ -126,6 +137,16 @@ export default {
     },
     finishedTodo: function (task) {
       task.state = task.state ? 0 : 1;
+    },
+    pageChange: function (pageNumber) {
+      this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1),this.pageSize*(pageNumber));
+    },
+    function(){
+      this.lists = new Array(99).fill().map((v,i)=> {
+        return {id : i,title : "Title" + i};
+      });
+      this.length = Math.ceil(this.lists.length/this.pageSize);
+      this.displayLists = this.lists.slice(0,this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
     },
   },
 };
