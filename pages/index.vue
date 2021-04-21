@@ -73,7 +73,7 @@
       <v-list-item v-for="task,index in tasks" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
 
-        <v-list-subtitle>{{ task.state }}</v-list-subtitle>
+        <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
 
         <v-list-title>{{ task.text }}</v-list-title>
         <v-list-item-icon>
@@ -117,12 +117,11 @@ export default {
     newTask: null,
   }),
   computed: {
-    // labels() {
-    //   return this.options.reduce(function (a, b) {
-    //     return Object.assign(a, { [b.value]: b.label });
-    //   }, {});
-      
-    // },
+    labels() {
+      return this.state.reduce(function (a, b) {
+        return Object.assign(a, { [b.value]: b.label });
+      }, {});
+    },
     // computedTodos: function() {
       
       // return this.tasks.filter(function(el) {
