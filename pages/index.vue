@@ -47,21 +47,33 @@
 
     <v-divider />
 
-    <v-container>
+    <!-- <v-container>
       <label v-for="label in options" :key="label.id">
         <input type="radio" v-model="current" v-bind:value="label.value" />{{
           label.label
         }}
       </label>
+    </v-container> -->
+    <v-container>
+      <v-checkbox
+        v-model= "state"
+        label= "IN PROGRESS"
+        value= "inProgress"
+      ></v-checkbox>
+      <v-checkbox
+        v-model= "state"
+        label= "FINISHED"
+        value= "finish"
+      ></v-checkbox>
     </v-container>
 
     <v-divider />
 
     <v-card>
-      <v-list-item v-for="(task, index) in computedTodos" :key="index">
+      <v-list-item v-for="task,index in tasks" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
 
-        <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
+        <v-list-subtitle>{{ task.state }}</v-list-subtitle>
 
         <v-list-title>{{ task.text }}</v-list-title>
         <v-list-item-icon>
@@ -83,6 +95,7 @@
 <script>
 export default {
   data: () => ({
+
     tasks: [
       {
         date: new Date().toISOString().substr(0, 10),
@@ -91,33 +104,31 @@ export default {
         state: 1,
       },
     ],
-    options: [
-      { value: 0, label: "全て" },
-      { value: 1, label: "IN PROGRESS" },
-      { value: 2, label: "FINISHED" },
+    state: [
+      {value: 0, label: "IN PROGRESS"},
+      {value: 1, label: "FINISHED"},
     ],
-
-      page: 1,
-      length: 0,
-      lists: [],
-      displayLists: [],
-      pageSize: 10,
-    current: 0,
+    //   page: 1,
+    //   length: 0,
+    //   lists: [],
+    //   displayLists: [],
+    //   pageSize: 10,
+    // current: 0,
     newTask: null,
   }),
   computed: {
-    labels() {
-      return this.options.reduce(function (a, b) {
-        return Object.assign(a, { [b.value]: b.label });
-      }, {});
+    // labels() {
+    //   return this.options.reduce(function (a, b) {
+    //     return Object.assign(a, { [b.value]: b.label });
+    //   }, {});
       
-    },
-    computedTodos: function() {
+    // },
+    // computedTodos: function() {
       
-      return this.tasks.filter(function(el) {
-        return this.current < 1 ? true : this.current === el.state
-      }, this)
-    }
+      // return this.tasks.filter(function(el) {
+    //     return this.current < 1 ? true : this.current === el.state
+    //   }, this)
+    // }
   },
 
   methods: {
@@ -126,7 +137,7 @@ export default {
         date: this.date,
         menu2: false,
         text: this.newTask,
-        state: 1,
+        state: 0,
       });
 
       this.newTask = null;
@@ -136,17 +147,7 @@ export default {
       this.tasks.splice(index, 1);
     },
     finishTodo: function (task) {
-      task.state = task.state ? 2 : 1;
-    },
-    pageChange: function (pageNumber) {
-      this.displayLists = this.lists.slice(this.pageSize*(pageNumber -1),this.pageSize*(pageNumber));
-    },
-    function(){
-      this.lists = new Array(99).fill().map((v,i)=> {
-        return {id : i,title : "Title" + i};
-      });
-      this.length = Math.ceil(this.lists.length/this.pageSize);
-      this.displayLists = this.lists.slice(0,this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
+      task.state = task.state ? 0 : 1;
     },
   },
 };
