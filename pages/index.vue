@@ -47,21 +47,20 @@
 
     <v-divider />
 
-    
     <v-item-group v-model="search">
       <v-checkbox
-      v-for="box in checkboxes"
-      :key="box.value"
-      :input-value="checkboxState[box.value]"
-      @change="onChange(box.value)"
-      :label="box.text"
-    ></v-checkbox>
+        v-for="box in checkboxes"
+        :key="box.value"
+        :input-value="checkboxState[box.value]"
+        @change="onChange(box.value)"
+        :label="box.text"
+      ></v-checkbox>
     </v-item-group>
 
     <v-divider />
 
     <v-card>
-      <v-list-item v-for="task,index in tasks" :key="index">
+      <v-list-item v-for="(task, index) in tasks" :key="index">
         <v-list-subtitle>{{ task.date }}</v-list-subtitle>
 
         <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
@@ -75,11 +74,10 @@
       </v-list-item>
     </v-card>
     <v-pagination
-          v-model="page"
-          :length="length"
-          @input="pageChange"
-        ></v-pagination>
-    
+      v-model="page"
+      :length="length"
+      @input="pageChange"
+    ></v-pagination>
   </v-container>
 </template>
 
@@ -87,9 +85,9 @@
 export default {
   data: () => ({
     checkboxState: {
-        inprogress: true,
-        finished: true,
-      },
+      inprogress: true,
+      finished: true,
+    },
     search: [],
     tasks: [
       {
@@ -100,8 +98,8 @@ export default {
       },
     ],
     state: [
-      {value: 0, label: "IN PROGRESS"},
-      {value: 1, label: "FINISHED"},
+      { value: 0, label: "IN PROGRESS" },
+      { value: 1, label: "FINISHED" },
     ],
     //   page: 1,
     //   length: 0,
@@ -124,8 +122,8 @@ export default {
       }, {});
     },
     // computedTodos: function() {
-      
-      // return this.tasks.filter(function(el) {
+
+    // return this.tasks.filter(function(el) {
     //     return this.current < 1 ? true : this.current === el.state
     //   }, this)
     // }
