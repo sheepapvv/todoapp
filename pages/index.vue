@@ -47,25 +47,16 @@
 
     <v-divider />
 
-    <!-- <v-container>
-      <label v-for="label in options" :key="label.id">
-        <input type="radio" v-model="current" v-bind:value="label.value" />{{
-          label.label
-        }}
-      </label>
-    </v-container> -->
-    <v-container>
+    
+    <v-item-group v-model="search">
       <v-checkbox
-        v-model= "state"
-        label= "IN PROGRESS"
-        value= "inProgress"
-      ></v-checkbox>
-      <v-checkbox
-        v-model= "state"
-        label= "FINISHED"
-        value= "finish"
-      ></v-checkbox>
-    </v-container>
+      v-for="box in checkboxes"
+      :key="box.value"
+      :input-value="checkboxState[box.value]"
+      @change="onChange(box.value)"
+      :label="box.text"
+    ></v-checkbox>
+    </v-item-group>
 
     <v-divider />
 
@@ -95,13 +86,17 @@
 <script>
 export default {
   data: () => ({
-
+    checkboxState: {
+        inprogress: true,
+        finished: true,
+      },
+    search: [],
     tasks: [
       {
         date: new Date().toISOString().substr(0, 10),
         menu2: false,
         text: "TODODODO",
-        state: 1,
+        state: 0,
       },
     ],
     state: [
@@ -117,6 +112,12 @@ export default {
     newTask: null,
   }),
   computed: {
+    checkboxes() {
+      return [
+        { text: "IN PROGRESS", value: "inprogress" },
+        { text: "FINISHED", value: "finished" },
+      ];
+    },
     labels() {
       return this.state.reduce(function (a, b) {
         return Object.assign(a, { [b.value]: b.label });
