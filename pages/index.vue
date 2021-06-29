@@ -46,67 +46,73 @@
     </v-form>
 
     <v-divider />
-
-    <v-item-group v-model="search">
-      <v-checkbox
+    <v-divider />
+    <v-card>
+      <v-card-title>
+        タスク一覧
+        <v-spacer></v-spacer>
+        <v-item-group type="checkbox" v-model="search">
+      <!-- <v-checkbox
         v-for="box in checkboxes"
         :key="box.value"
         :input-value="checkboxState[box.value]"
-        @change="onChange(box.value)"
         :label="box.text"
-      ></v-checkbox>
+      ></v-checkbox> -->
+       <v-checkbox
+          v-model="search"
+          label="IN PROGRESS"
+          value="IN PROGRESS"
+        ></v-checkbox>
+         <v-checkbox
+          v-model="search"
+          label="FINISHED"
+          value="FINISHED"
+        ></v-checkbox>
     </v-item-group>
-
-    <v-divider />
-
-    <v-card>
-      <v-list-item v-for="(task, index) in tasks" :key="index">
-        <v-list-subtitle>{{ task.date }}</v-list-subtitle>
-
-        <v-list-subtitle>{{ labels[task.state] }}</v-list-subtitle>
-
-        <v-list-title>{{ task.text }}</v-list-title>
-        <v-list-item-icon>
-          <v-btn color="primary" @click="finishTodo(task)">FINISH</v-btn>
-
-          <v-btn color="primary" @click="deleteTodo(index)">DELETE</v-btn>
-        </v-list-item-icon>
-      </v-list-item>
+      </v-card-title>
+      <v-data-table
+        :headers="headers"
+        :items="desserts"
+        :search="search"
+      ><template template v-slot:[`item.actions`]="{ item }">>
+        <v-btn color="primary" @click="finishTodo(item)">FINISH</v-btn>
+        <v-btn color="primary" @click="deleteTodo(item)">DELETE</v-btn>
+      </template>
+      </v-data-table>
     </v-card>
-    <v-pagination
-      v-model="page"
-      :length="length"
-      @input="pageChange"
-    ></v-pagination>
   </v-container>
 </template>
 
 <script>
 export default {
   data: () => ({
+    search: '',
+      headers: [
+        {
+          text: 'タスク',
+          align: 'start',
+          sortable: false,
+          value: 'task',
+        },
+        { text: 'いつまで？', value: 'date' },
+        { text: '状態', value: 'state' },
+        { text: 'ボタン', value: 'actions', sortable: false },
+      ],
+      desserts: [
+        {
+          task: 'TOTOTOTODODODODODODODO',
+          date: new Date().toISOString().substr(0, 10),
+          state: 'IN PROGRESS',
+        },
+      ],
     checkboxState: {
       inprogress: true,
       finished: true,
     },
-    search: [],
-    tasks: [
-      {
-        date: new Date().toISOString().substr(0, 10),
-        menu2: false,
-        text: "TODODODO",
-        state: 0,
-      },
+    taskState: [
+      { value: 0, label: 'IN PROGRESS' },
+      { value: 1, label: 'FINISHED' },
     ],
-    state: [
-      { value: 0, label: "IN PROGRESS" },
-      { value: 1, label: "FINISHED" },
-    ],
-    //   page: 1,
-    //   length: 0,
-    //   lists: [],
-    //   displayLists: [],
-    //   pageSize: 10,
-    // current: 0,
     newTask: null,
   }),
   computed: {
@@ -117,35 +123,29 @@ export default {
       ];
     },
     labels() {
-      return this.state.reduce(function (a, b) {
+      return this.taskState.reduce(function (a, b) {
         return Object.assign(a, { [b.value]: b.label });
       }, {});
     },
-    // computedTodos: function() {
-
-    // return this.tasks.filter(function(el) {
-    //     return this.current < 1 ? true : this.current === el.state
-    //   }, this)
-    // }
   },
 
   methods: {
     create() {
-      this.tasks.push({
+      this.desserts.push({
         date: this.date,
         menu2: false,
-        text: this.newTask,
+        task: this.newTask,
         state: 0,
       });
-
       this.newTask = null;
       this.date = null;
     },
-    deleteTodo: function (index) {
-      this.tasks.splice(index, 1);
+    deleteTodo: function (item) {
+      const index = this.desserts.indexOf(item)
+      this.desserts.splice(index, 1);
     },
-    finishTodo: function (task) {
-      task.state = task.state ? 0 : 1;
+    finishTodo: function (desserts) {
+      desserts.state = desserts.state ? 0 : 1
     },
   },
 };
