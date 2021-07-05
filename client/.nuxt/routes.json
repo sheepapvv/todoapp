@@ -1,0 +1,16 @@
+[
+  {
+    "name": "inspire",
+    "path": "/inspire",
+    "component": "/Users/papvv/work/todoapp/client/pages/inspire.vue",
+    "chunkName": "pages/inspire",
+    "_name": "_d5f9dbb6"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/papvv/work/todoapp/client/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_9fca4646"
+  }
+]
