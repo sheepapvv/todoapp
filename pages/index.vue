@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form ref="form" lazy-validation @submit.prevent="addTask">
+    <v-form ref="task_form" lazy-validation @submit.prevent="addTask">
       <v-row>
         <v-col>
           <v-subheader>DUE DATE :</v-subheader>
@@ -36,7 +36,7 @@
           <v-subheader>TODO :</v-subheader>
         </v-col>
         <v-col>
-          <v-text-field v-model="newTask" label="ここにタスクを" solo>
+          <v-text-field v-model="newTask" label="ここにタスクを" :rules="[required]" solo>
             <template v-slot:append-outer>
               <v-btn color="primary" @click="create">SAVE</v-btn>
             </template>
@@ -46,11 +46,11 @@
     </v-form>
 
     <v-divider />
-    
+
     <v-card>
       <v-card-title>
         タスク一覧
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-item-group type="checkbox" v-model="search">
           <v-checkbox
             v-model="search"
@@ -64,9 +64,11 @@
           ></v-checkbox>
         </v-item-group>
       </v-card-title>
-      <v-data-table :headers="headers" :items="desserts" :search="search"
-        ><template template v-slot:[`item.actions`]="{ item }"
-          >>
+      <v-data-table :headers="headers" :items="tasks" :search="search">
+        <template template v-slot:[`item.state`]="{ item }">
+          {{ taskState.find(x => x.value === item.state).label }}
+        </template>
+        <template template v-slot:[`item.actions`]="{ item }">
           <v-btn color="primary" @click="finishTodo(item)">FINISH</v-btn>
           <v-btn color="primary" @click="deleteTodo(item)">DELETE</v-btn>
         </template>
@@ -79,27 +81,23 @@
 export default {
   data: () => ({
     search: "",
+    required: value => !!value || "必ず入力してください",
     headers: [
-      {
-        text: "タスク",
-        align: "start",
-        sortable: false,
-        value: "task",
-      },
+      { text: "タスク", value: "task",　align: "start",　sortable: false},
       { text: "いつまで？", value: "date" },
       { text: "状態", value: "state" },
       { text: "ボタン", value: "actions", sortable: false },
     ],
-    desserts: [
+    tasks: [
       {
         task: "TOTOTOTODODODODODODODO",
         date: new Date().toISOString().substr(0, 10),
-        state: "IN PROGRESS",
+        state: 0,
       },
       {
         task: "これはふぃにっしゅ",
         date: new Date().toISOString().substr(0, 10),
-        state: "FINISHED",
+        state: 1,
       },
     ],
     taskState: [
@@ -108,23 +106,21 @@ export default {
     ],
     newTask: null,
   }),
+
   computed: {
-    checkboxes() {
-      return [
-        { text: "IN PROGRESS", value: "inprogress" },
-        { text: "FINISHED", value: "finished" },
-      ];
-    },
-    labels() {
-      return this.taskState.reduce(function (a, b) {
-        return Object.assign(a, { [b.value]: b.label });
-      }, {});
-    },
+    // labels() {
+    //   return this.taskState.reduce(function (a, b) {
+    //     return Object.assign(a, { [b.value]: b.label });
+    //   }, {});
+    // },
   },
 
   methods: {
     create() {
-      this.desserts.push({
+      if(!this.$refs.task_form.validate()){
+        return
+      }
+      this.tasks.push({
         date: this.date,
         menu2: false,
         task: this.newTask,
@@ -134,11 +130,11 @@ export default {
       this.date = null;
     },
     deleteTodo: function (item) {
-      const index = this.desserts.indexOf(item);
-      this.desserts.splice(index, 1);
+      const index = this.tasks.indexOf(item);
+      this.tasks.splice(index, 1);
     },
-    finishTodo: function (desserts) {
-      desserts.state = desserts.state ? 0 : 1;
+    finishTodo: function (tasks) {
+      tasks.state = tasks.state ? 0 : 1;
     },
   },
 };
