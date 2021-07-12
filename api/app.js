@@ -16,6 +16,11 @@ app.get("/", (req, res) => {
       date: new Date().toISOString().substr(0, 10),
       state: 1,
     },
+    {
+      task: "これはapp.jsから",
+      date: new Date().toISOString().substr(0, 10),
+      state: 1,
+    },
   ];
   res.json(tasks);
 })

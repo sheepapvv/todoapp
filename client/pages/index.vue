@@ -74,15 +74,17 @@
         </template>
       </v-data-table>
     </v-card>
-    <div id="app">
-  {{ tasks }}
-</div>
   </v-container>
 </template>
 
 <script>
 import axios from 'axios'
 export default {
+  async asyncData(){
+    const url = "http://localhost:5000";
+    const response = await axios.get(url);
+    console.log(response.data);
+  },
   data: () => ({
     info: null,
     date: null,
