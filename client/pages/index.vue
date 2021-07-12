@@ -55,12 +55,12 @@
           <v-checkbox
             v-model="search"
             label="IN PROGRESS"
-            value="IN PROGRESS"
+            value= o
           ></v-checkbox>
           <v-checkbox
             v-model="search"
             label="FINISHED"
-            value="FINISHED"
+            value= 1
           ></v-checkbox>
         </v-item-group>
       </v-card-title>
