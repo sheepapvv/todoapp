@@ -74,12 +74,19 @@
         </template>
       </v-data-table>
     </v-card>
+    <div id="app">
+  {{ tasks }}
+</div>
   </v-container>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data: () => ({
+    info: null,
+    date: null,
+    menu2: null,
     search: "",
     required: value => !!value || "必ず入力してください",
     headers: [
@@ -106,6 +113,15 @@ export default {
     ],
     newTask: null,
   }),
+
+  // mounted() {
+  //   axios
+      
+  //     axios.get('http://localhost:5000')
+  //     .then(response => (this.tasks = response.json))
+  //     .catch(error => (this.error = error))
+  //     console.log("2222");
+  // },
 
   computed: {
     // labels() {
